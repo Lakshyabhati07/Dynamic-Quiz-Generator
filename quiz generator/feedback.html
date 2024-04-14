@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Feedback</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #e16464;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f7eded;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #341bae;
+        }
+        .feedback {
+            margin-top: 20px;
+        }
+        p {
+            margin: 0;
+        }
+        .score {
+            font-size: 20px;
+            font-weight: bold;
+            color: #4caf50;
+        }
+        h2 {
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 18px;
+            color: #333;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 5px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Quiz Feedback</h1>
+        <div class="feedback">
+            <p>Your quiz score: <span class="score" id="quizScore"></span></p>
+            <h2>Correct Answers:</h2>
+            <ul id="correctAnswers"></ul>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const quizScore = localStorage.getItem('quizScore');
+            const correctAnswers = JSON.parse(localStorage.getItem('correctAnswers'));
+
+            document.getElementById('quizScore').textContent = quizScore;
+
+            const correctAnswersList = document.getElementById('correctAnswers');
+            correctAnswers.forEach(answer => {
+                const li = document.createElement('li');
+                li.textContent = `${answer.question} - ${answer.correctAnswer}`;
+                correctAnswersList.appendChild(li);
+            });
+
+            localStorage.removeItem('quizScore');
+            localStorage.removeItem('correctAnswers');
+        });
+    </script>
+</body>
+</html>
